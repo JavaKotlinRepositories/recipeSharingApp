@@ -1,0 +1,11 @@
+.container{
+    display: flex;
+    justify-content: space-between;
+}
+.home-class{
+    cursor: pointer;
+}
+
+.button-class{
+    cursor: pointer;
+}
