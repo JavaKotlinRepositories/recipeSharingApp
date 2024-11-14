@@ -26,7 +26,13 @@ public class CommentService {
 
     public ResponseEntity<HashMap<String, Object>> getCommentForPost(Long postId) {
         HashMap<String,Object> ret=new HashMap<>();
-
+        Optional<Recipe> recipe=recipeRepo.findById(postId);
+        if(recipe.isPresent()){
+            ret.put("comments",recipe.get().getComments());
+        }
+        else{
+            ret.put("message","recipe does not exist");
+        }
         return ResponseEntity.ok(ret);
     }
 
@@ -44,7 +50,7 @@ public class CommentService {
                 ret.put("comment",commentRepo.save(comment));
             }
             else{
-                ret.put("message","chef does not exist");
+                ret.put("message","recipe does not exist");
             }
         }
         else{
