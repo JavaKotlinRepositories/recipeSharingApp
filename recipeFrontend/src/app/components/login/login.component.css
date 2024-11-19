@@ -1,0 +1,117 @@
+.homecover {
+    background-image: url('/homeCover.jpeg');
+    height: 80vh;  /* Full viewport height */
+    width: 100%;
+    background-size:contain;  /* Ensures the background image covers the entire div */
+    background-position: center;  /* Centers the image */
+    /* background-repeat: no-repeat; Prevents image repetition */
+    /* Centering text both horizontally and vertically */
+    display: flex;
+    justify-content: center;  /* Horizontal centering */
+    align-items: center;      /* Vertical centering */
+    text-align: center;       /* Centers the text */
+    color: white;             /* White text for visibility */
+    font-size: 2rem;          /* Adjust font size */
+    flex-direction: column;   /* Stacks the text and button vertically */
+  }
+  /* Overall page styling */
+
+  
+  .custom-form {
+    background: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    transform: scale(1);
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+ 
+  
+  .custom-form h2 {
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 2rem;
+    font-weight: bold;
+  }
+  
+  .input-group {
+    margin-bottom: 25px;
+    position: relative;
+  }
+  
+  .input-group label {
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 5px;
+    display: block;
+  }
+  
+  .input-group input {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    outline: none;
+    background: #f9f9f9;
+    transition: all 0.3s ease;
+  }
+  
+  .input-group input:focus {
+    border-color: #ff3399;
+    background: #fff;
+    box-shadow: 0 0 10px rgba(255, 51, 153, 0.5);
+  }
+  
+  .submit-btn-container {
+    margin-top: 20px;
+  }
+  
+  .submit-btn {
+    padding: 15px 30px;
+    width: 100%;
+    font-size: 1.2rem;
+    color: white;
+    background-color: #ff3399;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(255, 51, 153, 0.3);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .submit-btn:hover {
+    background-color: #ff66b2;
+    transform: translateY(-2px);
+  }
+  
+  .submit-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 10px rgba(255, 51, 153, 0.3);
+  }
+  
+  /* Input focus animation */
+  @keyframes pulse {
+    0% {
+      box-shadow: 0 0 10px rgba(255, 51, 153, 0.5);
+    }
+    50% {
+      box-shadow: 0 0 20px rgba(255, 51, 153, 0.8);
+    }
+    100% {
+      box-shadow: 0 0 10px rgba(255, 51, 153, 0.5);
+    }
+  }
+  
+  .input-group input:focus {
+    animation: pulse 1.5s ease-out infinite;
+  }
+  

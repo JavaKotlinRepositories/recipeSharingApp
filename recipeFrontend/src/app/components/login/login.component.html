@@ -1,0 +1,23 @@
+
+
+    <div class="homecover">
+        <form (submit)="login()" class="custom-form">
+            <h2>Login to See Recipes</h2>
+            <div class="input-group">
+              <label for="email">Email:</label>
+              <input type="email" id="email" required [(ngModel)]="email" [ngModelOptions]="{ standalone: true }">
+            </div>
+            
+            <div class="input-group">
+              <label for="password">Password:</label>
+              <input type="password" id="password" required [(ngModel)]="password" [ngModelOptions]="{ standalone: true }">
+            </div>
+            
+            <div class="submit-btn-container">
+              <input type="submit" value="Login" class="submit-btn">
+            </div>
+          </form>
+          
+          
+    </div>
+    

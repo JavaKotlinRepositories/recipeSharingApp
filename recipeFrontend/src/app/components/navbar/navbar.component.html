@@ -1,0 +1,17 @@
+<div class="container">
+    <h1 class="home-class" (click)="home()">
+        <img src="recipelogo.jpeg" alt="Recipe Logo" class="logo">
+        KitchenCraft
+    </h1>
+    <div>
+        <div *ngIf="loginInfo.email && loginInfo.token; else noLoginInfo" class="miniContainer">
+            <div>Hi: {{ loginInfo.email }}</div>
+            <div (click)="logout()" class="submit-btn">logout</div>
+          </div>
+          <ng-template #noLoginInfo>
+            <div (click)="login()" class="submit-btn">login</div>
+            <div (click)="signup()" class="submit-btn">signup</div>
+          </ng-template>
+        
+    </div>
+</div>

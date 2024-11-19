@@ -1,0 +1,46 @@
+
+.homecover {
+    background-image: url('/homeCover.jpeg');
+    height: 80vh;  /* Full viewport height */
+    width: 100%;
+    background-size:contain;  /* Ensures the background image covers the entire div */
+    background-position: center;  /* Centers the image */
+    /* background-repeat: no-repeat; Prevents image repetition */
+    /* Centering text both horizontally and vertically */
+    display: flex;
+    justify-content: center;  /* Horizontal centering */
+    align-items: center;      /* Vertical centering */
+    text-align: center;       /* Centers the text */
+    color: white;             /* White text for visibility */
+    font-size: 2rem;          /* Adjust font size */
+    flex-direction: column;   /* Stacks the text and button vertically */
+  }
+  
+
+  
+
+
+
+  .submit-btn {
+    margin:1rem;
+    padding: 15px 30px;
+    width: 100%;
+    font-size: 1.2rem;
+    color: white;
+    background-color: #ff3399;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(255, 51, 153, 0.3);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .submit-btn:hover {
+    background-color: #ff66b2;
+    transform: translateY(-2px);
+  }
+  
+  .submit-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 10px rgba(255, 51, 153, 0.3);
+  }
