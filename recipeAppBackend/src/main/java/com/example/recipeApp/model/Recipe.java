@@ -17,7 +17,8 @@ public class Recipe {
     String description;
     @Column(nullable = false)
     String image;
-
+    @Column(nullable = false)
+    long viewCount;
     @ManyToOne
     @JoinColumn(name = "chef_id", nullable = false)
     @JsonIgnore

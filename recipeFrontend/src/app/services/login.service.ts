@@ -21,7 +21,7 @@ export class LoginService {
     this.http = http;
     this.router = router;
     this.cookieService = cookieService;
-    this.checkLogin();
+    this.checkLoginOnPageLoad();
   }
   login(email: string, password: string){
     console.log('login', email, password)
@@ -34,7 +34,8 @@ export class LoginService {
     this.router.navigate(['/home']);
   }
 
-  checkLogin(){
+  
+  checkLoginOnPageLoad(){
     if(this.cookieService.check('AuthCookie'))
     {
       try{
@@ -55,5 +56,17 @@ export class LoginService {
   clearLoginDetails(): void {
     this.cookieService.delete('AuthCookie');
     this.loginInfo.next({email:'',token:''});
+  }
+
+
+
+  getLoginInfo(){
+    try{
+      this._loginInfo
+    return {email: '',token: ''}
+    }
+    catch(err){
+      return {email: '',token: ''};
+    }
   }
 }

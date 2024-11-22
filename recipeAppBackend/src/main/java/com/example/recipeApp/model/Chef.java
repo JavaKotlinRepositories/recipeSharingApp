@@ -24,8 +24,11 @@ public class Chef {
     @Column(unique = true,nullable = false)
     String chefProfileImage;
 
+
+
     @OneToMany(mappedBy = "chef", cascade = CascadeType.ALL, orphanRemoval = true)
     List<Recipe> recipes = new ArrayList<>();
+
 
     @OneToMany(mappedBy = "chef", cascade = CascadeType.ALL, orphanRemoval = true)
     List<Comment>  comments= new ArrayList<>();

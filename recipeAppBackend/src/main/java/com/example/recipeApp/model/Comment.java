@@ -3,6 +3,8 @@ package com.example.recipeApp.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 public class Comment {
     @Id
@@ -12,6 +14,8 @@ public class Comment {
     String comment;
     @Column(nullable = false)
     int rating;
+    @Column(name = "viewed_at", nullable = false)
+    private LocalDateTime viewedAt;
 
     @ManyToOne
     @JoinColumn(name = "chef_id", nullable = false)
