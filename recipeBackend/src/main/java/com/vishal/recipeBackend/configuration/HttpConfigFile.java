@@ -29,8 +29,8 @@ public class HttpConfigFile {
     @Autowired
     ChefDetailService chefDetailService;
 
-    @Autowired
-    JwtFilter jwtFilter;
+//    @Autowired
+//    JwtFilter jwtFilter;
 
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
@@ -47,7 +47,7 @@ public class HttpConfigFile {
     @Bean
     public AuthenticationProvider authprovider() {
     DaoAuthenticationProvider authprovider = new DaoAuthenticationProvider();
-    authprovider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
+    authprovider.setPasswordEncoder(new BCryptPasswordEncoder(12));
     authprovider.setUserDetailsService(chefDetailService);
     return authprovider;
     }
@@ -56,8 +56,7 @@ public class HttpConfigFile {
     public AuthenticationManager authenticationManager() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(chefDetailService);
-        authProvider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
-
+        authProvider.setPasswordEncoder(new BCryptPasswordEncoder(12));
         return new ProviderManager(List.of(authProvider));
     }
 }

@@ -18,8 +18,7 @@ public class ChefDetailService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Chefs chef=chefRepo.findByEmail(email);
-        System.out.println(chef.getEmail());
-        System.out.println(chef.getPassword());
+        
         if(chef==null){
             throw new UsernameNotFoundException(email);
         }

@@ -19,9 +19,9 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 import java.util.Collections;
 
-@Service
+//@Service
 public class JwtFilter extends OncePerRequestFilter {
-    @Autowired
+//    @Autowired
     JwtTokenGenerator jwtTokenGenerator;
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
