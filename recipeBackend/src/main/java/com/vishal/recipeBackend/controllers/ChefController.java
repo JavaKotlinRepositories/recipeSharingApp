@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 @RestController
@@ -35,7 +36,7 @@ public class ChefController {
                                           @RequestParam("lastName") String lastName,
                                           @RequestParam("password") String password,
                                           @RequestParam("email") String email,
-                                          @RequestParam("profilepic") MultipartFile profilePic) {
+                                          @RequestParam("profilepic") MultipartFile profilePic) throws IOException {
         chefDto dto=new chefDto();
         dto.setFirstName(firstName);
         dto.setLastName(lastName);
