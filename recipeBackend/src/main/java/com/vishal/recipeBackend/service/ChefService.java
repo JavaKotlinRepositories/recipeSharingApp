@@ -1,7 +1,7 @@
 package com.vishal.recipeBackend.service;
 
-import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.PutObjectRequest;
+//import com.amazonaws.services.s3.AmazonS3;
+//import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.vishal.recipeBackend.dto.chefDto;
 import com.vishal.recipeBackend.model.Chefs;
 import com.vishal.recipeBackend.repository.ChefsRepository;
@@ -14,6 +14,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import software.amazon.awssdk.core.sync.RequestBody;
+import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.PutObjectRequest;
+import software.amazon.awssdk.services.s3.model.PutObjectResponse;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -32,12 +36,16 @@ public class ChefService {
     AuthenticationManager authenticationManager;
 
     BCryptPasswordEncoder encoder;
-    AmazonS3 amazonS3;
-
-    public ChefService(AmazonS3 amazonS3) {
-        this.encoder=new BCryptPasswordEncoder(12);
-        this.amazonS3=amazonS3;
-    }
+//    AmazonS3 amazonS3;
+    S3Client s3Client;;
+//    public ChefService(AmazonS3 amazonS3) {
+//        this.encoder=new BCryptPasswordEncoder(12);
+//        this.amazonS3=amazonS3;
+//    }
+public ChefService(S3Client s3Client) {
+    this.encoder=new BCryptPasswordEncoder(12);
+    this.s3Client=s3Client;
+}
     public HashMap<String, Object> login(String email, String password) {
         if(email==null || password==null) {
             return null;
@@ -83,8 +91,24 @@ public class ChefService {
             hm.put("message","This email already in use");
             return hm;
         }
-        System.out.println(profilePicBucket);
-        amazonS3.putObject(new PutObjectRequest(profilePicBucket,chefs.getProfilepic().getName(), convertMultiPartToFile(chefs.getProfilepic())));
+//        amazonS3.putObject(new PutObjectRequest(profilePicBucket,chefs.getProfilepic().getName(), convertMultiPartToFile(chefs.getProfilepic())));
+        if(!isJpeg(chefs.getProfilepic())) {
+            hm.put("message","provide a valid jpeg image");
+            return hm;
+        }
+        try{
+            PutObjectRequest putObjectRequest = PutObjectRequest.builder()
+                    .bucket(profilePicBucket)
+                    .key(chefs.getProfilepic().getName()+".jpeg")
+                    .build();
+
+            PutObjectResponse response = s3Client.putObject(putObjectRequest, RequestBody.fromBytes(chefs.getProfilepic().getBytes()));
+        }
+        catch(Exception e){
+            hm.put("message",e.getMessage());
+            return hm;
+        }
+
 
         Chefs newchefs=new Chefs();
         newchefs.setEmail(chefs.getEmail());
@@ -99,12 +123,8 @@ public class ChefService {
         return hm;
     }
 
-    private File convertMultiPartToFile(MultipartFile file) throws IOException {
-        File convFile = new File(file.getOriginalFilename());
-        try (FileOutputStream fos = new FileOutputStream(convFile)) {
-            fos.write(file.getBytes());
-        }
-        return convFile;
+    public boolean isJpeg(MultipartFile file) {
+        return file.getContentType() != null && file.getContentType().equalsIgnoreCase("image/jpeg");
     }
 
 }
