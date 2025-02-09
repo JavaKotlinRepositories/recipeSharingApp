@@ -43,7 +43,6 @@ public class ChefService {
     }
     public HashMap<String,Object> signup(chefDto chefs) {
         HashMap<String,Object> hm=new HashMap<>();
-        S3Client s3Client = S3Client.create();
 
         if(chefs.getEmail()==null) {
             hm.put("message","please enter email");
