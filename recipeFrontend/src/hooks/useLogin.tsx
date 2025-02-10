@@ -10,7 +10,7 @@ const useLogin = () => {
     setIsLoading(true);
     setError('');
     try{
-        const response=await fetch(import.meta.env.VITE_URL+"/login",{
+        const response=await fetch(import.meta.env.VITE_URL+"login",{
             method:"POST",
             headers:{'Content-Type':'application/json'},
             body:JSON.stringify({email,password})

@@ -12,19 +12,19 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.server.SecurityWebFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+
+import java.util.Arrays;
 import java.util.List;
 
 @Configuration
 @EnableWebSecurity
-public class HttpConfigFile {
+public class HttpConfigFile  {
 
     @Autowired
     ChefDetailService chefDetailService;
@@ -33,17 +33,27 @@ public class HttpConfigFile {
 //    JwtFilter jwtFilter;
 
     @Bean
-    public SecurityFilterChain configure(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http.cors(Customizer.withDefaults());
         http.csrf(customizer->customizer.disable());
         http.authorizeHttpRequests(auth->auth.requestMatchers("/backend/login","/backend/signup").permitAll().anyRequest().authenticated());
-        http.formLogin(Customizer->Customizer.disable());
-        http.httpBasic(customizer->customizer.disable());
+//        http.formLogin(Customizer->Customizer.disable());
+//        http.httpBasic(customizer->customizer.disable());
 //        http.httpBasic(Customizer.withDefaults());
 //        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-//        http.sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+        http.sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         return http.build();
     }
-
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type","Cache-Control"));
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
     @Bean
     public AuthenticationProvider authprovider() {
     DaoAuthenticationProvider authprovider = new DaoAuthenticationProvider();
