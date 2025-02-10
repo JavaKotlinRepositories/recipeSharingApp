@@ -65,10 +65,28 @@ public class ChefProfileController {
         int num2 = (int) postinfo.get("num2");
         Chefs chef= (Chefs) request.getAttribute("chef");
         try{
-            return chefProfileService.getPostinfo(chef,num1,num2);
+            return chefProfileService.getPostinfo(chef,num1,num2+1);
         }
         catch(Exception e){
             return new ArrayList<>();
         }
+    }
+
+    @DeleteMapping("/deletepost/{id}")
+    public HashMap<String,String> deletePost(HttpServletRequest request, @PathVariable int id) {
+        Chefs chef = (Chefs) request.getAttribute("chef");
+        HashMap<String, String> response = new HashMap<>();
+
+        try{
+            chefProfileService.deletePost(chef, id,response);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            System.out.println(e.toString());
+            System.out.println(e.getMessage());
+            response.put("message", "something went wrong with request deletion did not happen");
+        }
+        return response;
+
     }
 }

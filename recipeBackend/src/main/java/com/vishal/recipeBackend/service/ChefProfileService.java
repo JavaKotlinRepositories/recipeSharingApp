@@ -103,4 +103,15 @@ public class ChefProfileService {
             return recipes;
     }
 
+    public void deletePost(Chefs chef,  Integer id,HashMap<String,String> hm) {
+
+        int deletecount=recipeRepository.deleteByIdAndChefId(id,chef.getId());
+        if(deletecount>0){
+            hm.put("message","post deleted successfully");
+        }
+        else{
+            hm.put("message","post deletion failed");
+        }
+    }
+
 }
