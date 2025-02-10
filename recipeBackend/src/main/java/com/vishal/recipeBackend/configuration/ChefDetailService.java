@@ -22,6 +22,6 @@ public class ChefDetailService implements UserDetailsService {
         if(chef==null){
             throw new UsernameNotFoundException(email);
         }
-        return new ChefDetails(chef.getEmail(), chef.getPassword());
+        return new ChefDetails(chef);
     }
 }

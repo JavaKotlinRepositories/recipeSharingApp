@@ -64,5 +64,15 @@ public class Chefs {
         this.profilepic = profilepic;
     }
 
-
+    @Override
+    public String toString() {
+        return "Chefs{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", profilepic='" + profilepic + '\'' +
+                '}';
+    }
 }
