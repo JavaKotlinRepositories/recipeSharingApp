@@ -1,9 +1,8 @@
 package com.vishal.recipeBackend.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 public class Chefs {
@@ -15,6 +14,10 @@ public class Chefs {
     private String email;
     private String password;
     private String profilepic;
+
+    @OneToMany(mappedBy = "chef",cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Recipe> recipes;
+
 
     public int getId() {
         return id;
@@ -62,6 +65,13 @@ public class Chefs {
 
     public void setProfilepic(String profilepic) {
         this.profilepic = profilepic;
+    }
+    public List<Recipe> getRecipes() {
+        return recipes;
+    }
+
+    public void setRecipes(List<Recipe> recipes) {
+        this.recipes = recipes;
     }
 
     @Override

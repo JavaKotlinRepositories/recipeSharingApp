@@ -75,10 +75,10 @@ const Profile = () => {
                     return(<div key={post.id} className={Styles.onePost} ref={targetRef}>
                         <div className={Styles.userInfo}>
                              
-                            <img src={post.chef.profilepic} alt={`${post.chef.firstName} image`} className={Styles.profilepic}/>
+                            <img src={post?.chef?.profilepic} alt={`${post?.chef?.firstName} image`} className={Styles.profilepic}/>
                             <span className={Styles.name}>
-                                <div>{post.chef.firstName}</div>
-                                <div>{post.chef.lastName}</div>
+                                <div>{post?.chef?.firstName}</div>
+                                <div>{post?.chef?.lastName}</div>
                             </span>
                         </div>
                         <h2>{post.title}</h2>
@@ -101,10 +101,10 @@ const Profile = () => {
                     return(<div key={post.id} className={Styles.onePost}>
                         <div className={Styles.userInfo}>
                              
-                            <img src={post.chef.profilepic} alt={`${post.chef.firstName} image`} className={Styles.profilepic}/>
+                            <img src={post?.chef?.profilepic} alt={`${post?.chef?.firstName} image`} className={Styles.profilepic}/>
                             <span className={Styles.name}>
-                                <div>{post.chef.firstName}</div>
-                                <div>{post.chef.lastName}</div>
+                                <div>{post?.chef?.firstName}</div>
+                                <div>{post?.chef?.lastName}</div>
                             </span>
                         </div>
                         <h2>{post.title}</h2>

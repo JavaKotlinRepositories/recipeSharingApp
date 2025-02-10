@@ -30,14 +30,11 @@ public class S3service {
 //        BasicAWSCredentials awsCredentials=new BasicAWSCredentials(accessKeyId, secretAccessKey);
 //        return AmazonS3ClientBuilder.standard().withCredentials(new AWSStaticCredentialsProvider(awsCredentials)).withRegion(Regions.US_EAST_1).build();
 //    }
-
-
     @Bean
     public S3Client  S3client(){
 //        System.setProperty("aws.accessKeyId", accessKeyId);
 //        System.setProperty("aws.secretAccessKey", secretAccessKey);
         ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
-
         Region region = Region.US_EAST_1;
         return S3Client.builder()
                 .region(region)

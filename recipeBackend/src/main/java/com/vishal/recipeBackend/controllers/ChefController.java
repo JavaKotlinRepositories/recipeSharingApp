@@ -24,8 +24,7 @@ public class ChefController {
         HashMap<String,Object> map=chefService.login(chefs.getEmail(),chefs.getPassword());
         if(map==null){
             map=new HashMap<>();
-
-            map.put("status","please provide a valid email and password");
+            map.put("message","please provide a valid email and password");
             return map;
         }
         return map;
@@ -46,7 +45,7 @@ public class ChefController {
         HashMap<String,Object> map = chefService.signup(dto);
         if(map==null){
             map=new HashMap<>();
-            map.put("status","please provide valid data");
+            map.put("message","please provide valid data");
             return map;
         }
         return map;
