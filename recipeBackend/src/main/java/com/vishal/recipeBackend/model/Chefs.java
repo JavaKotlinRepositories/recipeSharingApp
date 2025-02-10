@@ -1,5 +1,6 @@
 package com.vishal.recipeBackend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.List;
 public class Chefs {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
     private String firstName;
     private String lastName;
     private String email;
@@ -16,10 +17,11 @@ public class Chefs {
     private String profilepic;
 
     @OneToMany(mappedBy = "chef",cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<Recipe> recipes;
 
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -74,15 +76,5 @@ public class Chefs {
         this.recipes = recipes;
     }
 
-    @Override
-    public String toString() {
-        return "Chefs{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", profilepic='" + profilepic + '\'' +
-                '}';
-    }
+
 }

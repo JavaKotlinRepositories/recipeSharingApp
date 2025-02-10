@@ -1,5 +1,7 @@
 package com.vishal.recipeBackend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import jakarta.persistence.*;
 
 import java.time.Instant;
@@ -10,7 +12,7 @@ public class Recipe {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
     private String title;
     private String description;
     private String ingredients;
@@ -24,6 +26,7 @@ public class Recipe {
 
     @ManyToOne
     @JoinColumn(name = "chefId", nullable = false)
+
     private Chefs chef;
 
 
@@ -39,7 +42,7 @@ public class Recipe {
         this.updatedAt = Instant.now();
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -110,4 +113,5 @@ public class Recipe {
     public void setChef(Chefs chef) {
         this.chef = chef;
     }
+
 }

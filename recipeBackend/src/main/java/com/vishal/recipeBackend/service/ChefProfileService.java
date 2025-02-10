@@ -6,9 +6,12 @@ import com.vishal.recipeBackend.model.Recipe;
 import com.vishal.recipeBackend.repository.RecipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 
 @Service
 public class ChefProfileService {
@@ -82,5 +85,22 @@ public class ChefProfileService {
         return hm;
     }
 
+    public List<Recipe> getPostinfo(Chefs chef,  int num1, int num2) {
+        int pageSize = num2 - num1;  // Define the number of records to fetch
+        Pageable pageable = PageRequest.of(num1 / pageSize, pageSize);
+            List<Recipe>  recipes=recipeRepository.findAllByOrderByCreatedAtDesc(pageable).getContent();
+            Chefs newchef=new Chefs();
+            newchef.setId(chef.getId());
+            newchef.setFirstName(chef.getFirstName());
+            newchef.setLastName(chef.getLastName());
+            newchef.setProfilepic(fileUtilityService.preSignedUrl(chef.getProfilepic(),profilePicBucket));
+
+
+            for(int i=0;i<recipes.size();i++){
+                recipes.get(i).setChef(newchef);
+                recipes.get(i).setImage(fileUtilityService.preSignedUrl(recipes.get(i).getImage(),postImagesBucket));
+            }
+            return recipes;
+    }
 
 }
