@@ -89,10 +89,7 @@
 			<groupId>software.amazon.awssdk</groupId>
 			<artifactId>s3</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>software.amazon.awssdk</groupId>
-			<artifactId>auth</artifactId>
-		</dependency>
+	
 
 <!--		&lt;!&ndash; https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-s3 &ndash;&gt;-->
 <!--		<dependency>-->

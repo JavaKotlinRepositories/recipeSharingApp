@@ -95,7 +95,6 @@ public ChefService(S3Client s3Client) {
             hm.put("message","please enter profilepic");
             return hm;
         }
-        System.out.println(chefs.getProfilepic());
         Chefs existingchef=chefsRepository.findByEmail(chefs.getEmail());
         if(existingchef!=null) {
             hm.put("message","This email already in use");
@@ -159,7 +158,6 @@ public ChefService(S3Client s3Client) {
         return sb.toString();
     }
     public String preSignedUrl(String filename,String bucket){
-    System.out.println(filename+" "+bucket);
         try (S3Presigner presigner = S3Presigner.create()) {
             GetObjectRequest getObjectRequest = GetObjectRequest.builder()
                     .bucket(bucket)

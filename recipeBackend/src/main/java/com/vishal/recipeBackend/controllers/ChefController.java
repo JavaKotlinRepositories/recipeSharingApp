@@ -14,7 +14,6 @@ import java.util.HashMap;
 
 @RestController
 @RequestMapping("/backend")
-@CrossOrigin
 public class ChefController {
     private final ChefService chefService;
     ChefController(ChefService chefService){
