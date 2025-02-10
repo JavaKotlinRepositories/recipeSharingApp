@@ -69,7 +69,7 @@ public ChefService(S3Client s3Client) {
         HashMap<String,Object> hm=new HashMap<>();
         hm.put("email",chefs.getEmail());
         hm.put("token",jwtTokenGenerator.generateToken(""+chefs.getId()));
-        hm.put("profilepic",preSignedUrl(chefs.getProfilepic()+".jpeg",profilePicBucket));
+        hm.put("profilepic",preSignedUrl(chefs.getProfilepic(),profilePicBucket));
         return hm;
     }
     public HashMap<String,Object> signup(chefDto chefs) throws IOException {
@@ -159,6 +159,7 @@ public ChefService(S3Client s3Client) {
         return sb.toString();
     }
     public String preSignedUrl(String filename,String bucket){
+    System.out.println(filename+" "+bucket);
         try (S3Presigner presigner = S3Presigner.create()) {
             GetObjectRequest getObjectRequest = GetObjectRequest.builder()
                     .bucket(bucket)
