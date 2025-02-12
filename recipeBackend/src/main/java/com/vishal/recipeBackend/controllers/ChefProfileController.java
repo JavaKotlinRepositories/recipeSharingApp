@@ -58,13 +58,14 @@ public class ChefProfileController {
     }
     @PostMapping("/getpostinfo")
     public List<Recipe> getPostinfo(HttpServletRequest request, @RequestBody HashMap<String, Object> postinfo) {
-        if(postinfo.get("num1") ==null || postinfo.get("num2") ==null){
-            return new ArrayList<>();
-        }
-        int num1 = (int) postinfo.get("num1");
-        int num2 = (int) postinfo.get("num2");
-        Chefs chef= (Chefs) request.getAttribute("chef");
+
         try{
+            if(postinfo.get("num1") ==null || postinfo.get("num2") ==null){
+                return new ArrayList<>();
+            }
+            int num1 = (int) postinfo.get("num1");
+            int num2 = (int) postinfo.get("num2");
+            Chefs chef= (Chefs) request.getAttribute("chef");
             return chefProfileService.getPostinfo(chef,num1,num2+1);
         }
         catch(Exception e){

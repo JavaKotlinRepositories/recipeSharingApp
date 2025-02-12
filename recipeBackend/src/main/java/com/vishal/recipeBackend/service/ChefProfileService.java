@@ -88,14 +88,13 @@ public class ChefProfileService {
     public List<Recipe> getPostinfo(Chefs chef,  int num1, int num2) {
         int pageSize = num2 - num1;  // Define the number of records to fetch
         Pageable pageable = PageRequest.of(num1 / pageSize, pageSize);
-        System.out.println(chef.getId());
             List<Recipe>  recipes=recipeRepository.findAllByChefIdOrderByCreatedAtDesc(chef.getId(), pageable).getContent();
             Chefs newchef=new Chefs();
             newchef.setId(chef.getId());
             newchef.setFirstName(chef.getFirstName());
             newchef.setLastName(chef.getLastName());
             newchef.setProfilepic(fileUtilityService.preSignedUrl(chef.getProfilepic(),profilePicBucket));
-            
+
             for(int i=0;i<recipes.size();i++){
                 recipes.get(i).setChef(newchef);
                 recipes.get(i).setImage(fileUtilityService.preSignedUrl(recipes.get(i).getImage(),postImagesBucket));
