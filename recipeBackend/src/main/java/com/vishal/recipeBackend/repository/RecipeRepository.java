@@ -14,7 +14,7 @@ import java.util.List;
 
 @Repository
 public interface RecipeRepository extends JpaRepository<Recipe, Integer> {
-    Page<Recipe> findAllByOrderByCreatedAtDesc(Pageable pageable);
+    Page<Recipe> findAllByChefIdOrderByCreatedAtDesc(Integer chefId,Pageable pageable);
     @Modifying
     @Transactional
     @Query("DELETE FROM Recipe r WHERE r.id = :id AND r.chef.id = :chefId")
