@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 public class Recipe {
@@ -26,9 +27,23 @@ public class Recipe {
 
     @ManyToOne
     @JoinColumn(name = "chefId", nullable = false)
-
     private Chefs chef;
 
+    public List<Likes> getLikes() {
+        return likes;
+    }
+
+    public void setLikes(List<Likes> likes) {
+        this.likes = likes;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    List<Likes> likes;
 
     @PrePersist
     protected void onCreate() {

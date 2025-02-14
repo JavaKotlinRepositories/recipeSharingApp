@@ -1,15 +1,74 @@
 package com.vishal.recipeBackend.dto;
 
+import com.vishal.recipeBackend.model.Chefs;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.Instant;
+
 public class RecipeDto {
+    private Integer id;
    private String title;
     private  String description;
+
+
+
     private  String ingredients;
     private String instructions;
 
     private MultipartFile postimage;
+    private Instant createdAt;
+    private String image;
+    private Chefs chef;
+    private Integer likes;
+    private Boolean isLiked;
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+    public Boolean getIsLiked() {
+        return isLiked;
+    }
+
+    public void setIsLiked(Boolean isLiked) {
+        this.isLiked = isLiked;
+    }
+
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Instant createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public Chefs getChef() {
+        return chef;
+    }
+
+    public void setChef(Chefs chef) {
+        this.chef = chef;
+    }
+
+    public Integer getLikes() {
+        return likes;
+    }
+
+    public void setLikes(Integer likes) {
+        this.likes = likes;
+    }
+
 
     public String getTitle() {
         return title;

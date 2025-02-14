@@ -20,6 +20,21 @@ public class Chefs {
     @JsonIgnore
     private List<Recipe> recipes;
 
+    @OneToMany(mappedBy = "chefs",cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<Likes> likes;
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public List<Likes> getLikes() {
+        return likes;
+    }
+
+    public void setLikes(List<Likes> likes) {
+        this.likes = likes;
+    }
 
     public Integer getId() {
         return id;
