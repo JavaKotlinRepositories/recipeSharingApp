@@ -29,6 +29,10 @@ public class Recipe {
     @JoinColumn(name = "chefId", nullable = false)
     private Chefs chef;
 
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    List<Likes> likes;
+
     public List<Likes> getLikes() {
         return likes;
     }
@@ -41,9 +45,7 @@ public class Recipe {
         this.id = id;
     }
 
-    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
-    List<Likes> likes;
+
 
     @PrePersist
     protected void onCreate() {

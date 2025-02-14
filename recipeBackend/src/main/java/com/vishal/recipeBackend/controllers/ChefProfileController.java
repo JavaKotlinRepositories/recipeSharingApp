@@ -57,7 +57,7 @@ public class ChefProfileController {
         }
     }
     @PostMapping("/getpostinfo")
-    public List<Recipe> getPostinfo(HttpServletRequest request, @RequestBody HashMap<String, Object> postinfo) {
+    public List<RecipeDto> getPostinfo(HttpServletRequest request, @RequestBody HashMap<String, Object> postinfo) {
 
         try{
             if(postinfo.get("num1") ==null || postinfo.get("num2") ==null){

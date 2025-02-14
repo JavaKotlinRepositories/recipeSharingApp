@@ -2,14 +2,18 @@ package com.vishal.recipeBackend.service;
 
 import com.vishal.recipeBackend.dto.RecipeDto;
 import com.vishal.recipeBackend.model.Chefs;
+import com.vishal.recipeBackend.model.Likes;
 import com.vishal.recipeBackend.model.Recipe;
+import com.vishal.recipeBackend.repository.LikesRepository;
 import com.vishal.recipeBackend.repository.RecipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -21,6 +25,9 @@ public class ChefProfileService {
 
     @Autowired
     RecipeRepository recipeRepository;
+    @Autowired
+    LikesRepository likesRepository;
+
     @Value("${aws.profilepicbucket}")
     String profilePicBucket;
     @Value("${aws.postimagesbucket}")
@@ -85,10 +92,11 @@ public class ChefProfileService {
         return hm;
     }
 
-    public List<Recipe> getPostinfo(Chefs chef,  int num1, int num2) {
+    public List<RecipeDto> getPostinfo(Chefs chef,  int num1, int num2) {
         int pageSize = num2 - num1;  // Define the number of records to fetch
         Pageable pageable = PageRequest.of(num1 / pageSize, pageSize);
             List<Recipe>  recipes=recipeRepository.findAllByChefIdOrderByCreatedAtDesc(chef.getId(), pageable).getContent();
+        List<RecipeDto>  recipeDtos=new ArrayList<>();
             Chefs newchef=new Chefs();
             newchef.setId(chef.getId());
             newchef.setFirstName(chef.getFirstName());
@@ -98,14 +106,36 @@ public class ChefProfileService {
             for(int i=0;i<recipes.size();i++){
                 recipes.get(i).setChef(newchef);
                 recipes.get(i).setImage(fileUtilityService.preSignedUrl(recipes.get(i).getImage(),postImagesBucket));
+            }
+            for(int i=0;i<recipes.size();i++){
+                RecipeDto recipeDto=new RecipeDto();
+                recipeDto.setId(recipes.get(i).getId());
+                recipeDto.setTitle(recipes.get(i).getTitle());
+                recipeDto.setDescription(recipes.get(i).getDescription());
+                recipeDto.setIngredients(recipes.get(i).getIngredients());
+                recipeDto.setInstructions(recipes.get(i).getInstructions());
+                recipeDto.setChef(newchef);
+                recipeDto.setImage(recipes.get(i).getImage());
+                Likes liked=likesRepository.findLikesByRecipeIdAndChefsId(recipes.get(i).getId(), chef.getId());
+                int count=likesRepository.countLikesByRecipeId(recipes.get(i).getId());
+                if(liked!=null){
+                    recipeDto.setIsLiked(true);
+                }
+                else{
+                    recipeDto.setIsLiked(false);
+                }
+                recipeDto.setLikes(count);
+                recipeDtos.add(recipeDto);
 
             }
-            return recipes;
+            return recipeDtos;
     }
 
+    @Transactional
     public void deletePost(Chefs chef,  Integer id,HashMap<String,String> hm) {
-
+        likesRepository.deleteAllByRecipeId(id);
         int deletecount=recipeRepository.deleteByIdAndChefId(id,chef.getId());
+
         if(deletecount>0){
             hm.put("message","post deleted successfully");
         }
