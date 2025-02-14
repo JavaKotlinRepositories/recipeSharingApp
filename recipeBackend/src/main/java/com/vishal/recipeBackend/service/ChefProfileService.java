@@ -89,6 +89,7 @@ public class ChefProfileService {
         chefhm.put("lastName",chef.getLastName());
         chefhm.put("profilepic",fileUtilityService.preSignedUrl(chef.getProfilepic(),profilePicBucket));
         hm.put("chef",chefhm);
+        hm.put("likes",0);
         return hm;
     }
 
