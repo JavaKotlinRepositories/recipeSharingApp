@@ -1,0 +1,7 @@
+########################## build the docker frontend ###########################
+docker build -t recipe-app-frontend .
+
+########################## build the docker backend ###########################
+build the jar file using the command "mvn clean package" not intellij 
+##############
+docker build -t recipe-app-backend .

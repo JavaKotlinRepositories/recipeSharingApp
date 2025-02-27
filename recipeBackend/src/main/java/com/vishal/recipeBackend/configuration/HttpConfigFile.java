@@ -59,13 +59,13 @@ public class HttpConfigFile  {
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
-    @Bean
-    public AuthenticationProvider authprovider() {
-    DaoAuthenticationProvider authprovider = new DaoAuthenticationProvider();
-    authprovider.setPasswordEncoder(new BCryptPasswordEncoder(12));
-    authprovider.setUserDetailsService(chefDetailService);
-    return authprovider;
-    }
+//    @Bean
+//    public AuthenticationProvider authprovider() {
+//    DaoAuthenticationProvider authprovider = new DaoAuthenticationProvider();
+//    authprovider.setPasswordEncoder(new BCryptPasswordEncoder(12));
+//    authprovider.setUserDetailsService(chefDetailService);
+//    return authprovider;
+//    }
 
     @Bean
     public AuthenticationManager authenticationManager() {
