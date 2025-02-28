@@ -1,7 +1,61 @@
-########################## build the docker frontend ###########################
-docker build -t recipe-app-frontend .
+########################## login to gcloud and set the cloud #####################################
+gcloud auth login
+gcloud config set project recipe-app-452222
+########################## create ip address ###################################
+gcloud compute addresses create recipe-app-ip  --global
+gcloud compute addresses list --global
+gcloud compute addresses describe recipe-app --global --format="value(address)"
+---------------------------------- postgresql --------------------------------
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
 
+
+
+
+
+---------------------------------- backend -----------------------------------
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
 ########################## build the docker backend ###########################
 build the jar file using the command "mvn clean package" not intellij 
-##############
+########################## build the docker backend ###########################
 docker build -t recipe-app-backend .
+########################## check the docker backend ###########################
+docker run -d -p 8080:8080 recipe-app-backend
+########################## tag the image ##############################
+docker tag recipe-app-backend us-east1-docker.pkg.dev/recipe-app-452222/recipe-app/recipe-app-backend
+########################## push image to frontend ##############################
+docker push us-east1-docker.pkg.dev/recipe-app-452222/recipe-app/recipe-app-backend
+###################### create a certificate #####################################
+kubectl apply -f ManagedCertificate.yaml
+############## create a Ingress for load balancing ##############################
+kubectl apply -f Ingress.yaml
+
+
+
+
+--------------------------------- frontend -----------------------------------
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+
+########################## build the docker frontend ##########################
+docker build -t recipe-app-frontend .
+########################## check the docker backend ###########################
+docker run -d -p 5173:80 recipe-app-frontend
+
+########################## tag the image ##############################
+docker tag recipe-app-frontend us-east1-docker.pkg.dev/recipe-app-452222/recipe-app/recipe-app-frontend
+
+########################## push image to frontend ##############################
+docker push us-east1-docker.pkg.dev/recipe-app-452222/recipe-app/recipe-app-frontend
+
+###################### create frontend for deployment ###########################
+kubectl apply -f frontend_deployment.yaml
+###################### create frontend for service ##############################
+kubectl apply -f frontend_service.yaml
+
+
+
+
+
+

@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: recipe-app-backend
+  labels:
+    app: recipe-app-backend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: recipe-app-backend
+  template:
+    metadata:
+      labels:
+        app: recipe-app-backend
+    spec:
+      containers:
+        - name: recipe-app-backend
+          image: us-east1-docker.pkg.dev/recipe-app-452222/recipe-app/recipe-app-backend
+          ports:
+            - containerPort: 8080
+          env:
+            # - name: SPRING_PROFILES_ACTIVE
+            #   value: "prod"
+            - name: SPRING_DATASOURCE_URL
+              value: "jdbc:postgresql://postgres:5432/springdev"
+            - name: SPRING_DATASOURCE_USERNAME
+              value: "postgres"
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: "Sql@10071999"
+            - name: SPRING_DATASOURCE_DRIVER_CLASS_NAME
+              value: "org.postgresql.Driver"
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: aws-credentials
+                  key: AWS_ACCESS_KEY_ID
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: aws-credentials
+                  key: AWS_SECRET_ACCESS_KEY
+            - name: AWS_DEFAULT_REGION
+              valueFrom:
+                secretKeyRef:
+                  name: aws-credentials
+                  key: AWS_DEFAULT_REGION

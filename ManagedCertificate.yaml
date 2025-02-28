@@ -1,0 +1,7 @@
+apiVersion: networking.gke.io/v1
+kind: ManagedCertificate
+metadata:
+  name: recipe-cert
+spec:
+  domains:
+    - recipeshare.vishalgandla.online  # Replace with your domain

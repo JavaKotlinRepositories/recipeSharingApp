@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: recipe-app-ingress
+  annotations:
+    kubernetes.io/ingress.class: "gce"  # Use Google Cloud Load Balancer
+    networking.gke.io/managed-certificates: "recipe-cert"  # Optional: For HTTPS
+    kubernetes.io/ingress.global-static-ip-name: "recipe-app-ip"
+spec:
+  rules:
+    - host: recipeshare.vishalgandla.online  # Replace with your domain
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: recipe-app-frontend-service
+                port:
+                  number: 80
+          # Backend service path
+          - path: /backend
+            pathType: Prefix
+            backend:
+              service:
+                name: recipe-app-backend-service
+                port:
+                  number: 80 

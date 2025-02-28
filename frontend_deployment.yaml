@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: recipe-app-frontend
+  labels:
+    app: recipe-app-frontend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: recipe-app-frontend
+  template:
+    metadata:
+      labels:
+        app: recipe-app-frontend
+    spec:
+      containers:
+        - name: recipe-app-frontend
+          image: us-east1-docker.pkg.dev/recipe-app-452222/recipe-app/recipe-app-frontend
+          ports:
+            - containerPort: 80
