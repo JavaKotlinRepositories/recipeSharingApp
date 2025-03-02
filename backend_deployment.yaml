@@ -14,9 +14,18 @@ spec:
       labels:
         app: recipe-app-backend
     spec:
+      volumes: 
+      - name: aws-credentials
+        secret:
+          secretName: aws-credentials
       containers:
         - name: recipe-app-backend
           image: us-east1-docker.pkg.dev/recipe-app-452222/recipe-app/recipe-app-backend
+          volumeMounts:
+          - name: aws-credentials
+            mountPath: /root/.aws/
+            readOnly: true          
+
           ports:
             - containerPort: 8080
           env:
@@ -30,18 +39,3 @@ spec:
               value: "Sql@10071999"
             - name: SPRING_DATASOURCE_DRIVER_CLASS_NAME
               value: "org.postgresql.Driver"
-            - name: AWS_ACCESS_KEY_ID
-              valueFrom:
-                secretKeyRef:
-                  name: aws-credentials
-                  key: AWS_ACCESS_KEY_ID
-            - name: AWS_SECRET_ACCESS_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: aws-credentials
-                  key: AWS_SECRET_ACCESS_KEY
-            - name: AWS_DEFAULT_REGION
-              valueFrom:
-                secretKeyRef:
-                  name: aws-credentials
-                  key: AWS_DEFAULT_REGION

@@ -11,13 +11,13 @@ spec:
     - host: recipeshare.vishalgandla.online  # Replace with your domain
       http:
         paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: recipe-app-frontend-service
-                port:
-                  number: 80
+          # - path: /
+          #   pathType: Prefix
+          #   backend:
+          #     service:
+          #       name: recipe-app-frontend-service
+          #       port:
+          #         number: 80
           # Backend service path
           - path: /backend
             pathType: Prefix

@@ -8,7 +8,18 @@ gcloud compute addresses describe recipe-app --global --format="value(address)"
 ---------------------------------- postgresql --------------------------------
 ------------------------------------------------------------------------------
 ------------------------------------------------------------------------------
+#################################### create a postgres database #################################
+kubectl apply -f postgres-pvc.yaml
+kubectl get persistentvolumeclaim
 
+kubectl apply -f postgres-secret.yaml
+kubectl get secret
+
+kubectl apply -f postgres-statefulset.yaml
+kubectl get StatefulSet
+###################deploy database ############################
+kubectl apply -f postgres-service.yaml
+kubectl get services
 
 
 
@@ -26,6 +37,26 @@ docker run -d -p 8080:8080 recipe-app-backend
 docker tag recipe-app-backend us-east1-docker.pkg.dev/recipe-app-452222/recipe-app/recipe-app-backend
 ########################## push image to frontend ##############################
 docker push us-east1-docker.pkg.dev/recipe-app-452222/recipe-app/recipe-app-backend
+
+################## Create the AWS credentials file locally ###########################
+mkdir -p ~/.aws
+nano ~/.aws/credentials
+
+################################ Add your credentials: ################################
+[my-profile]
+aws_access_key_id=YOUR_ACCESS_KEY
+aws_secret_access_key=YOUR_SECRET_KEY
+region=YOUR_REGION
+
+################################ Create a Kubernetes Secret ################################
+kubectl create secret generic aws-credentials --from-file="/c/Users/G VISHAL/.aws/credentials"
+
+
+
+###################### create backend for deployment ###########################
+kubectl apply -f backend_deployment.yaml
+###################### create backend for service ##############################
+kubectl apply -f backend_service.yaml
 ###################### create a certificate #####################################
 kubectl apply -f ManagedCertificate.yaml
 ############## create a Ingress for load balancing ##############################
