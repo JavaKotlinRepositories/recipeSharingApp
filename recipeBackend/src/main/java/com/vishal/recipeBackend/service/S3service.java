@@ -7,7 +7,7 @@ package com.vishal.recipeBackend.service;
 //import com.amazonaws.services.s3.AmazonS3;
 //import com.amazonaws.services.s3.AmazonS3Client;
 //import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import org.springframework.beans.factory.annotation.Value;
+//import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
@@ -18,11 +18,11 @@ import software.amazon.awssdk.services.s3.S3Client;
 @Service
 public class S3service {
 
-    @Value("${aws.accessKeyId}")
-    private String accessKeyId;
-
-    @Value("${aws.secretAccessKey}")
-    private String secretAccessKey;
+//    @Value("${aws.accessKeyId}")
+//    private String accessKeyId;
+//
+//    @Value("${aws.secretAccessKey}")
+//    private String secretAccessKey;
 
 //    @Bean
 //    public AmazonS3 S3client(){

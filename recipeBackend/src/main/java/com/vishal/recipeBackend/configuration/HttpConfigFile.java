@@ -40,7 +40,7 @@ public class HttpConfigFile  {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.cors(Customizer.withDefaults());
         http.csrf(customizer->customizer.disable());
-        http.authorizeHttpRequests(auth->auth.requestMatchers("/backend/login","/backend/signup").permitAll().anyRequest().authenticated());
+        http.authorizeHttpRequests(auth->auth.requestMatchers("/backend/login","/backend/signup","/","/healthz").permitAll().anyRequest().authenticated());
         http.formLogin(Customizer->Customizer.disable());
         http.httpBasic(customizer->customizer.disable());
 //        http.httpBasic(Customizer.withDefaults());

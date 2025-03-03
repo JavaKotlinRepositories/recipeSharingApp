@@ -27,6 +27,19 @@ kubectl get services
 ---------------------------------- backend -----------------------------------
 ------------------------------------------------------------------------------
 ------------------------------------------------------------------------------
+############################### add health check to app #########################
+Currently, all service backends must satisfy either of the following requirements to pass the
+ HTTP health checks sent to it from the GCE loadbalancer: 1. Respond with a 200 on '/'. The content 
+ does not matter. 2. Expose an arbitrary url as a readiness probe on the pods backing the Service.
+ @GetMapping("/")
+    public ResponseEntity index() {
+        return ResponseEntity.ok("Hello World");// Root health check for load balancer
+    }
+    @GetMapping("/healthz")
+    public ResponseEntity healthz() {
+        return ResponseEntity.ok("Hello World");// Additional readiness probe endpoint
+    }
+
 ########################## build the docker backend ###########################
 build the jar file using the command "mvn clean package" not intellij 
 ########################## build the docker backend ###########################
@@ -57,6 +70,7 @@ kubectl create secret generic aws-credentials --from-file="/c/Users/G VISHAL/.aw
 kubectl apply -f backend_deployment.yaml
 ###################### create backend for service ##############################
 kubectl apply -f backend_service.yaml
+kubectl port-forward svc/recipe-app-backend-service 8080:80
 ###################### create a certificate #####################################
 kubectl apply -f ManagedCertificate.yaml
 ############## create a Ingress for load balancing ##############################
